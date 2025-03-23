@@ -41,7 +41,7 @@ public final class CPSChecker extends JavaPlugin implements Listener {
                 clickCounts.put(playerId, clickCounts.getOrDefault(playerId, 0) + 1);
 
                 if (clickCounts.get(playerId) > MAX_CPS) {
-                    player.sendMessage(ChatColor.RED + "⚠ Warning: You are clicking over 20 CPS!");
+                    player.sendMessage(ChatColor.RED + "⚠ Warning: You are clicking over " + MAX_CPS + " CPS!");
                 }
                 break;
             default:
