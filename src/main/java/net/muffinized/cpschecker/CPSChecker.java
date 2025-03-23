@@ -1,5 +1,6 @@
 package net.muffinized.cpschecker;
 
+import net.muffinized.cpschecker.commands.reloadCommand;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -17,7 +18,12 @@ public final class CPSChecker extends JavaPlugin implements Listener {
 
     @Override
     public void onEnable() {
+
+        saveDefaultConfig();
+
         getServer().getPluginManager().registerEvents(this, this);
+        getCommand("cpschecker").setExecutor(new reloadCommand(this));
+
         startCPSResetTask();
     }
 
@@ -30,7 +36,7 @@ public final class CPSChecker extends JavaPlugin implements Listener {
     public void onPlayerClick(PlayerInteractEvent event) {
         Player player = event.getPlayer();
 
-        int MAX_CPS = 20;
+        int MAX_CPS = getConfig().getInt("max-cps");
 
         switch (event.getAction()) {
             case RIGHT_CLICK_AIR:

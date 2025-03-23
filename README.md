@@ -29,3 +29,7 @@
 
 6. **Enjoy!**
     - The CPS Checker plugin should now be active on your server.
+
+## Configuration
+- You can edit the configuration in the `config.yml` file.
+- After editing the configuration, you need to restart the server or execute the command `/cpschecker reload` to apply the changes.
