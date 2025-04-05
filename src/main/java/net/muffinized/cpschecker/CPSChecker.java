@@ -2,6 +2,8 @@ package net.muffinized.cpschecker;
 
 import net.muffinized.cpschecker.commands.reloadCommand;
 import org.bukkit.ChatColor;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -16,12 +18,13 @@ import java.util.UUID;
 public final class CPSChecker extends JavaPlugin implements Listener {
 
     private final HashMap<UUID, Integer> clickCounts = new HashMap<>();
+    private FileConfiguration messagesConfig;
 
     @Override
     public void onEnable() {
 
         saveDefaultConfig();
-        saveResource("messages.yml", false);
+        loadMessagesConfig();
 
         getServer().getPluginManager().registerEvents(this, this);
         getCommand("cpschecker").setExecutor(new reloadCommand(this));
@@ -34,8 +37,16 @@ public final class CPSChecker extends JavaPlugin implements Listener {
         // do whatever you want here
     }
 
+    private void loadMessagesConfig() {
+        File messagesFile = new File(getDataFolder(), "messages.yml");
+        if (!messagesFile.exists()) {
+            saveResource("messages.yml", false);
+        }
+        messagesConfig = YamlConfiguration.loadConfiguration(messagesFile);
+    }
+
     public String getMessage(String key) {
-        return ChatColor.translateAlternateColorCodes('&', getConfig().getString(key));
+        return ChatColor.translateAlternateColorCodes('&', messagesConfig.getString(key));
     }
 
     @EventHandler
