@@ -18,15 +18,15 @@ public class reloadCommand implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] strings) {
         if(strings.length == 0) {
-            commandSender.sendMessage(ChatColor.RED + "Usage: /cpschecker reload");
+            commandSender.sendMessage(plugin.getMessage("usage"));
             return true;
         }
 
         if(strings[0].equalsIgnoreCase("reload")) {
             plugin.reloadConfig();
-            commandSender.sendMessage(ChatColor.GREEN + "Successfully reloaded the config!");
+            commandSender.sendMessage(plugin.getMessage("reload_success"));
         } else {
-            commandSender.sendMessage(ChatColor.RED + "Usage: /cpschecker reload");
+            commandSender.sendMessage(plugin.getMessage("usage"));
         }
         return true;
     }

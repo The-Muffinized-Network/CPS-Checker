@@ -9,6 +9,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -20,6 +21,7 @@ public final class CPSChecker extends JavaPlugin implements Listener {
     public void onEnable() {
 
         saveDefaultConfig();
+        saveResource("messages.yml", false);
 
         getServer().getPluginManager().registerEvents(this, this);
         getCommand("cpschecker").setExecutor(new reloadCommand(this));
@@ -30,6 +32,10 @@ public final class CPSChecker extends JavaPlugin implements Listener {
     @Override
     public void onDisable() {
         // do whatever you want here
+    }
+
+    public String getMessage(String key) {
+        return ChatColor.translateAlternateColorCodes('&', getConfig().getString(key));
     }
 
     @EventHandler
@@ -47,7 +53,7 @@ public final class CPSChecker extends JavaPlugin implements Listener {
                 clickCounts.put(playerId, clickCounts.getOrDefault(playerId, 0) + 1);
 
                 if (clickCounts.get(playerId) > MAX_CPS) {
-                    player.sendMessage(ChatColor.RED + "⚠ Warning: You are clicking over " + MAX_CPS + " CPS!");
+                    player.sendMessage(getMessage("warning").replace("%cps%", String.valueOf(MAX_CPS)));
                 }
                 break;
             default:

@@ -1,0 +1,6 @@
+# Placeholders
+# %cps% - Max CPS value
+
+usage: "&cUsage: /cpschecker reload"
+reload_success: "&aSuccessfully reloaded the config!"
+warning: "&c⚠ Warning: You are clicking over %cps% CPS!"
